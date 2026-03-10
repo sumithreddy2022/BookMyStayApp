@@ -1,49 +1,37 @@
-import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
-class RoomInventory {
+class Reservation {
+    String guestName;
+    String roomType;
 
-    private HashMap<String, Integer> inventory;
-
-    public RoomInventory() {
-        inventory = new HashMap<>();
-        inventory.put("Single Room", 5);
-        inventory.put("Double Room", 3);
-        inventory.put("Suite Room", 2);
+    Reservation(String guestName, String roomType) {
+        this.guestName = guestName;
+        this.roomType = roomType;
     }
 
-    public int getAvailability(String roomType) {
-        return inventory.getOrDefault(roomType, 0);
-    }
-
-    public void updateAvailability(String roomType, int count) {
-        inventory.put(roomType, count);
-    }
-
-    public void displayInventory() {
-        for (String roomType : inventory.keySet()) {
-            System.out.println(roomType + " Available: " + inventory.get(roomType));
-        }
+    void display() {
+        System.out.println("Guest: " + guestName + " | Room Type: " + roomType);
     }
 }
-
-public class BookMyStayApp {
+class Main {
 
     public static void main(String[] args) {
 
-        RoomInventory inventory = new RoomInventory();
+        Queue<Reservation> bookingQueue = new LinkedList<>();
+
+        bookingQueue.add(new Reservation("Alice", "Single Room"));
+        bookingQueue.add(new Reservation("Bob", "Double Room"));
+        bookingQueue.add(new Reservation("Charlie", "Suite Room"));
 
         System.out.println("Book My Stay - Hotel Booking System");
-        System.out.println("Version 3.1");
+        System.out.println("Version 5.1");
+        System.out.println();
+        System.out.println("Booking Requests (First-Come-First-Served):");
         System.out.println();
 
-        inventory.displayInventory();
-
-        System.out.println();
-        System.out.println("Updating Single Room availability...");
-
-        inventory.updateAvailability("Single Room", 4);
-
-        System.out.println();
-        inventory.displayInventory();
+        for (Reservation r : bookingQueue) {
+            r.display();
+        }
     }
 }
